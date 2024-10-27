@@ -1,28 +1,66 @@
-.App {
-  max-width: 600px;
-  margin: 0 auto;
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
   padding: 20px;
-  font-family: Arial, sans-serif;
 }
 
-input {
-  width: 70%;
+.search-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.card-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.card-description {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-field {
+  flex-grow: 1;
   padding: 10px;
-  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-button {
+.search-button {
   padding: 10px 20px;
   background-color: #007bff;
   color: white;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-button:hover {
+.search-button:hover {
   background-color: #0056b3;
 }
 
-div {
+.search-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.response-card {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 15px;
   margin-top: 20px;
 }

@@ -4,7 +4,10 @@ from botocore.exceptions import ClientError
 import json
 from canvas import scrape_canvas_courses
 from ed import main
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)  
 
 s3 = boto3.client('s3')
 

@@ -11,7 +11,7 @@ function App() {
   const handleSearch = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.post('/query', { query, course_name: courseName });
+      const res = await axios.post('https://xfpjovpqg4.execute-api.us-east-1.amazonaws.com/dev/Search', { query, course_name: courseName });
       setResponse(res.data.response);
     } catch (error) {
       console.error('Error fetching data:', error);

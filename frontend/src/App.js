@@ -11,10 +11,16 @@ function App() {
   const handleSearch = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.post('https://xfpjovpqg4.execute-api.us-east-1.amazonaws.com/dev/Search', { query, course_name: courseName });
-      setResponse(res.data.response);
+      const url = `https://xfpjovpqg4.execute-api.us-east-1.amazonaws.com/dev/Search?query=${encodeURIComponent(query)}&course_name=${encodeURIComponent(courseName)}`;
+      const res = await axios.get(url);
+
+      // Parse the nested JSON response structure
+      const parsedBody = JSON.parse(res.data.body);  // Parse the outer body field
+
+      // Set the response with the "generation" field from the parsed JSON
+      setResponse(parsedBody.generation || 'No response found');  // Access the "generation" field
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching data:', error);  // Log the full error object
       setResponse('An error occurred while searching. Please try again.');
     } finally {
       setIsLoading(false);
@@ -27,24 +33,24 @@ function App() {
         <h1 className="card-title">MyCourseIndex v2</h1>
         <p className="card-description">Search course materials from Ed and Canvas</p>
 
-        {/* New input for course name */}
+        {/* Input for course name */}
         <div className="search-input">
           <input
             type="text"
             value={courseName}
             onChange={(e) => setCourseName(e.target.value)}
-            placeholder="Enter course name... (ex. CS 3780, CS 2110, MATH 2940)"
+            placeholder="Enter course name... (e.g., CS 3780, CS 2110, MATH 2940)"
             className="input-field"
           />
         </div>
 
-        {/* Existing input for query */}
+        {/* Input for query */}
         <div className="search-input">
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="I want to look for... (ex. Summarize lecture 1 for me)"
+            placeholder="I want to look for... (e.g., Summarize lecture 1 for me)"
             className="input-field"
           />
           <button onClick={handleSearch} disabled={isLoading} className="search-button">

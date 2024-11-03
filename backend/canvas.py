@@ -98,6 +98,22 @@ def get_course_files(course):
     except Forbidden:
         pass
 
+##added this for the app.py uploading to s3 bucket :)))
+def scrape_canvas_courses(token, course_ids='all'):
+    canvas_url = 'https://canvas.cornell.edu/' 
+    canvas = Canvas(canvas_url, token)
+    
+    if course_ids != 'all':
+        course_id_list = course_ids.split(',')
+        courses = [canvas.get_course(int(id.strip())) for id in course_id_list]
+    else:
+        courses = canvas.get_courses()
+
+    all_course_data = {}
+    for course in courses:
+        course_data = get_course_files(canvas, course)
+        all_course_data[str(course.id)] = course_data
+    return all_course_data
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Download all content from Canvas")

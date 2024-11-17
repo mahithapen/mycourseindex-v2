@@ -6,12 +6,16 @@ def lambda_handler(event, context):
     bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
 
     # Extract client input from API Gateway event
-    try:
-        query = event.get('query', '')
-    except (json.JSONDecodeError) as e:
+    
+    # Parse query parameters
+    query_params = event.get('queryStringParameters') or {}
+    course = query_params.get('course', '')
+    query = query_params.get('query', '')
+
+    if not query:
         return {
-            'statusCode': 400,
-            'body': json.dumps({"error": "Invalid input, unable to parse request"})
+            "statusCode": 400,
+            "body": json.dumps({"error": "Missing required query parameter 'query'"})
         }
 
     """

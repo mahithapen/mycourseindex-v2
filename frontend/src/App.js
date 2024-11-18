@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
+
 function App() {
   const [query, setQuery] = useState('');
   const [courseName, setCourseName] = useState('');
@@ -11,17 +12,32 @@ function App() {
   const handleSearch = async () => {
     setIsLoading(true);
     try {
-      const url = `https://xfpjovpqg4.execute-api.us-east-1.amazonaws.com/dev/Search?query=${encodeURIComponent(query)}&course_name=${encodeURIComponent(courseName)}`;
+      console.log("Query:", query); // Debug log
+      console.log("Course Name:", courseName); // Debug log
+
+      const url = `https://xfpjovpqg4.execute-api.us-east-1.amazonaws.com/dev/Search?course=${encodeURIComponent(courseName)}&query=${encodeURIComponent(query)}`;
+      console.log("Request URL:", url); // Debug log
+
       const res = await axios.get(url);
+      console.log("Full Response:", res); // Debug log
 
-      // Parse the nested JSON response structure
-      const parsedBody = JSON.parse(res.data.body);  // Parse the outer body field
+      // Directly set the response's body
+      setResponse(res.data || "No response found");
 
-      // Set the response with the "generation" field from the parsed JSON
-      setResponse(parsedBody.generation || 'No response found');  // Access the "generation" field
     } catch (error) {
-      console.error('Error fetching data:', error);  // Log the full error object
-      setResponse('An error occurred while searching. Please try again.');
+      if (error.response) {
+        // Server responded with a status other than 2xx
+        console.error('Response Error:', error.response);
+        setResponse(`Server Error: ${error.response.status} - ${error.response.data || 'Unknown error'}`);
+      } else if (error.request) {
+        // Request was made, but no response received
+        console.error('No Response:', error.request);
+        setResponse('No response received. Please check your network.');
+      } else {
+        // Other errors (e.g., incorrect request setup)
+        console.error('Error:', error.message);
+        setResponse(`Error: ${error.message}`);
+      }
     } finally {
       setIsLoading(false);
     }

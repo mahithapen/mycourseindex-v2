@@ -5,27 +5,50 @@ def lambda_handler(event, context):
     # Initialize Bedrock client
     bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
 
-    # Test course materials
-    s3 = boto3.client('s3')
-    bucket_name = "course-materials-storage"
-    prefix = "courses/course-101/"
-    data = ""
+    # Extract client input from API Gateway event
     
-    # List of objects in S3 bucket
-    response = s3.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
+    # Parse query parameters
+    query_params = event.get('queryStringParameters') or {}
+    course = query_params.get('course', '')
+    query = query_params.get('query', '')
+
+    if not query:
+        return {
+            "statusCode": 400,
+            "body": json.dumps({"error": "Missing required query parameter 'query'"})
+        }
+
+    """
+    # Checking if query comes through
+    # Process query
+    response_message = f"Received query: {query}"
+    response = {
+        "statusCode": 200,
+        "body": json.dumps({"message": response_message}),
+    }
+    return response
+    """
+    # # Test course materials
+    # s3 = boto3.client('s3')
+    # bucket_name = "course-materials-storage"
+    # prefix = "courses/course-101/"
+    # data = ""
     
-    # Check if there are any contents
-    if 'Contents' in response:
-        files = [obj['Key'] for obj in response['Contents']]
-        data = json.dumps({'files': files})
-        print(data)
+    # # List of objects in S3 bucket
+    # response = s3.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
+    
+    # # Check if there are any contents
+    # if 'Contents' in response:
+    #     files = [obj['Key'] for obj in response['Contents']]
+    #     data = json.dumps({'files': files})
+    #     print(data)
     
     # Set model ID
     model_id = "us.meta.llama3-2-1b-instruct-v1:0"
 
     # Prepare Bedrock payload
     payload = {
-        "prompt": f"Analyze the following information:\n\n{data}Could someone please explain why there cannot be current in the top wire?"
+        "prompt": query
     }
 
     try:

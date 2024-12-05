@@ -9,6 +9,24 @@ function App() {
   const [response, setResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const courses = [
+    { value: '', label: 'Select a course...' },
+    { value: 'ARCH 1901', label: 'ARCH 1901 FWS: Topics in Architecture ' },
+    { value: 'ARTH 1100', label: 'ARTH 1100 COMBINED-XLIST Art Histories: An Introduction' },
+    { value: 'ASIAN 1111 ', label: 'ASIAN 1111 FWS: Literature, Culture, Religion ' },
+    { value: 'CS 3780', label: 'CS 3780 COMBINED-COMEET Introduction to Machine Learning ' },
+    { value: 'ENGRD 2700', label: 'ENGRD 2700 Basic Engineering Probability and Statistics ' },
+    { value: 'ENGRG 1050', label: 'ENGRG 1050 Engineering Seminar ' },
+    { value: 'ENGRG 1400', label: 'ENGRG 1400 Engineering Project Team Onboarding ' },
+    { value: 'ENGRI 1270', label: 'ENGRI 1270 COMBINED Introduction to Entrepreneurship for Engineers ' },
+    { value: 'Introduction to Analysis of Algorithms', label: 'Introduction to Analysis of Algorithms ' },
+    { value: 'MATH 2930', label: 'MATH 2930 Differential Equations for Engineers ' },
+    { value: 'MATH 2940', label: 'MATH 2940 Linear Algebra for Engineers ' },
+    { value: 'ORIE 3500', label: 'ORIE 3500 COMBINED-COMEET Eng Probability and Statistics: Modeling and Data Science II ' },
+    { value: 'PHYS 1110', label: 'PHYS 1110 Introduction to Experimental Physics ' }
+  ];
+
+
   const handleSearch = async () => {
     setIsLoading(true);
     try {
@@ -48,16 +66,19 @@ function App() {
       <div className="search-card">
         <h1 className="card-title">MyCourseIndex v2</h1>
         <p className="card-description">Search course materials from Ed and Canvas</p>
-
-        {/* Input for course name */}
+        {/* Dropdown for selecting course */}
         <div className="search-input">
-          <input
-            type="text"
+          <select
             value={courseName}
             onChange={(e) => setCourseName(e.target.value)}
-            placeholder="Enter course name... (e.g., CS 3780, CS 2110, MATH 2940)"
             className="input-field"
-          />
+          >
+            {courses.map((course) => (
+              <option key={course.value} value={course.value}>
+                {course.label}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Input for query */}

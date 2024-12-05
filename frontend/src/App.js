@@ -12,17 +12,17 @@ function App() {
   const courses = [
     { value: '', label: 'Select a course...' },
     { value: 'ARCH 1901', label: 'ARCH 1901 FWS: Topics in Architecture ' },
-    { value: 'ARTH 1100', label: 'ARTH 1100 COMBINED-XLIST Art Histories: An Introduction' },
+    { value: 'ARTH 1100', label: 'ARTH 1100 Art Histories: An Introduction' },
     { value: 'ASIAN 1111 ', label: 'ASIAN 1111 FWS: Literature, Culture, Religion ' },
-    { value: 'CS 3780', label: 'CS 3780 COMBINED-COMEET Introduction to Machine Learning ' },
+    { value: 'CS 3780', label: 'CS 3780 Introduction to Machine Learning ' },
     { value: 'ENGRD 2700', label: 'ENGRD 2700 Basic Engineering Probability and Statistics ' },
     { value: 'ENGRG 1050', label: 'ENGRG 1050 Engineering Seminar ' },
     { value: 'ENGRG 1400', label: 'ENGRG 1400 Engineering Project Team Onboarding ' },
-    { value: 'ENGRI 1270', label: 'ENGRI 1270 COMBINED Introduction to Entrepreneurship for Engineers ' },
+    { value: 'ENGRI 1270', label: 'ENGRI 1270 Introduction to Entrepreneurship for Engineers ' },
     { value: 'Introduction to Analysis of Algorithms', label: 'Introduction to Analysis of Algorithms ' },
     { value: 'MATH 2930', label: 'MATH 2930 Differential Equations for Engineers ' },
     { value: 'MATH 2940', label: 'MATH 2940 Linear Algebra for Engineers ' },
-    { value: 'ORIE 3500', label: 'ORIE 3500 COMBINED-COMEET Eng Probability and Statistics: Modeling and Data Science II ' },
+    { value: 'ORIE 3500', label: 'ORIE 3500 Eng Probability and Statistics: Modeling and Data Science II ' },
     { value: 'PHYS 1110', label: 'PHYS 1110 Introduction to Experimental Physics ' }
   ];
 
